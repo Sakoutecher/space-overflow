@@ -11,8 +11,8 @@ class QuestionController {
         return new Response("<h1>Hello classroom 🌐.</h1>");
     }
 
-    #[Route('/comment-sortir-dun-trou-noir')]
+    #[Route('/questions/comment-sortir-dun-trou-noir')]
     public function trounoir(): Response {
-        return new Response("<h1>J'avoue je ne sais pas du tout 🫤.</h1>");
+        return new Response("<h1>Comment sortir d'un trou noir ?</h1>");
     }
 }
