@@ -29,7 +29,8 @@ class QuestionController extends AbstractController {
                 'il faut un turbo propulseur nucléaire.',
                 "laisse tomber c'est impossible",
                 'je ne sais pas quoi dire',
-                'que dire de plus'
+                'que dire de plus',
+                'bonjour le monde'
             ],
             // 'archived' => true,
         ]);
