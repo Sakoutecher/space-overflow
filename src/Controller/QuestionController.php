@@ -35,9 +35,4 @@ class QuestionController extends AbstractController {
         ]);
         // $slug = ucfirst(str_replace('-', ' ', $slug));
     }
-
-    #[Route('/answers/{id}/vote/{direction}', name: 'app_question_vote')]
-    public function vote(int $id, string $direction) {
-        
-    }
 }

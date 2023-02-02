@@ -4,19 +4,17 @@ namespace App\Controller;
 
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AnswersController extends AbstractController {
-    #[Route('/answers/{id}/vote/{direction}', name: 'app_answers_vote')]
-    public function vote(int $id, string $direction): JsonResponse {
+    #[Route('/answers/{id<\d+>}/vote/{direction<up|down>}', name: 'app_answers_vote')]
+    public function vote(string $direction): Response {
         if ($direction === 'up') {
             $value = random_int(0, 100);
         } else if ($direction === 'down') {
             $value = random_int(-100, 0);
-        } else {
-            throw new Exception("La valeur saisie de direction n'est pas correct.");
         }
-        return $this->json(['vote' => $value]);
+        return $this->json(['votes' => $value]);
     }
 }
