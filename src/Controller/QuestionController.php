@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\DTO\Author;
+use App\DTO\Question;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,12 +16,10 @@ class QuestionController extends AbstractController {
 
     #[Route('/questions/{slug}')]
     public function show(string $slug): Response {
-        $slug = ucfirst(str_replace('-', ' ', $slug));
+        $author = new Author('Hugo', 'Campos');
+        $question = new Question($slug, ucfirst(str_replace('-', ' ', $slug)), $author);
         return $this->render('question/show.html.twig', [
-            'question' => [
-                'title' => $slug,
-                'content' => 'lorem ispum'
-            ],
+            'question' => $question,
             'answers' => [
                 'la téléportation.',
                 'il faut un turbo propulseur nucléaire.',
@@ -29,5 +29,6 @@ class QuestionController extends AbstractController {
             ],
             // 'archived' => true,
         ]);
+        // $slug = ucfirst(str_replace('-', ' ', $slug));
     }
 }
