@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController extends AbstractController {
     #[Route('/')]
     public function homepage(): Response {
-        return new Response("<h1>Hello space-overflow 🌐.</h1>");
+        return $this->render('question/homepage.html.twig');
     }
 
     #[Route('/questions/{slug}')]
