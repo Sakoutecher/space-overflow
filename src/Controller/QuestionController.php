@@ -16,7 +16,18 @@ class QuestionController extends AbstractController {
     public function show(string $slug): Response {
         $slug = ucfirst(str_replace('-', ' ', $slug));
         return $this->render('question/show.html.twig', [
-            'question' => $slug,
+            'question' => [
+                'title' => $slug,
+                'content' => 'lorem ispum'
+            ],
+            'answers' => [
+                'la téléportation.',
+                'il faut un turbo propulseur nucléaire.',
+                "laisse tomber c'est impossible",
+                'je ne sais pas quoi dire',
+                'que dire de plus'
+            ],
+            // 'archived' => true,
         ]);
     }
 }

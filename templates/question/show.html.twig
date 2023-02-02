@@ -1,3 +1,12 @@
-<h1>Hello from Twig \o/</h1>
+<h3>{{question.title}} ?</h3>
 
-{{question}}
+{# {{archived ? 'question archivée' : 'question pas archivée'}} #}
+
+<p>Nombre de réponse(s) disponible(s) : {{answers|length}}</p>
+
+<ul>
+    {% for answer in answers %}
+        <li>{{answer|capitalize}}</li>
+    {% endfor %}
+</ul>
+
