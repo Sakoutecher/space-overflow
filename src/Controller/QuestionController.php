@@ -11,13 +11,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController extends AbstractController {
     #[Route('/')]
     public function homepage(): Response {
-        return new Response("<h1>Hello classroom 🌐.</h1>");
+        return new Response("<h1>Hello space-overflow 🌐.</h1>");
     }
 
     #[Route('/questions/{slug}')]
     public function show(string $slug): Response {
         $author = new Author('Hugo', 'Campos');
-        $question = new Question($slug, ucfirst(str_replace('-', ' ', $slug)), $author);
+        $question = new Question(
+            $slug, 
+            ucfirst(str_replace('-', ' ', $slug)), 
+            $author
+        );
         return $this->render('question/show.html.twig', [
             'question' => $question,
             'answers' => [
