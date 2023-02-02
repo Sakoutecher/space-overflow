@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionController extends AbstractController {
-    #[Route('/')]
+    #[Route('/', name: 'app_question_homepage')]
     public function homepage(): Response {
         return $this->render('question/homepage.html.twig');
     }
 
-    #[Route('/questions/{slug}')]
+    #[Route('/questions/{slug}', name: 'app_question_show')]
     public function show(string $slug): Response {
         $author = new Author('Hugo', 'Campos');
         $question = new Question(
