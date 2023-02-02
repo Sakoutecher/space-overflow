@@ -1,20 +1,72 @@
-{% extends "base.html.twig" %}
-{% block title %}
-    {{parent()}} - {{question.title}}
-{% endblock %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Comment sortir d'un trou noir ?{% endblock %}
+
 {% block body %}
-    <h3>{{question.title}} ?</h3>
-    <i>{{question.slug}}</i>
-    <p>Nom de l'auteur : <strong>{{question.author.lastName|upper}}</strong></p>
-    <p>Prénom de l'auteur : <strong>{{question.author.firstName}}</strong></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="my-4">Question</h2>
+                <div style="box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);">
+                    <div class="q-container-show p-4">
+                        <div class="row">
+                            <div class="col-2 text-center">
+                                <img src="/images/bender.png" width="100" height="100">
+                            </div>
+                            <div class="col">
+                                <h1 class="q-title-show">Comment sortir d'un trou noir ?</h1>
+                                <div class="q-display p-3">
+                                    <i class="fa fa-quote-left mr-3"></i>
+                                    <p class="d-inline">Je suis tombé sans faire exprès dans un trou noir, pouvez vous m'indiquer comment sortir de là ?</p>
+                                    <p class="pt-4"><strong>-- Bender</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <p>Nombre de réponse(s) disponible(s) : <strong>{{answers|length}}</strong></p>
+        <div class="d-flex justify-content-between my-4">
+            <h2 class="">Réponses <span style="font-size:1.2rem;">(6)</span></h2>
+            <button class="btn btn-sm btn-secondary">Proposer une réponse</button>
+        </div>
 
-    <ul>
-        {% for answer in answers %}
-            <li>{{answer|capitalize}}</li>
-        {% endfor %}
-    </ul>
-    {# {{archived ? 'question archivée' : 'question pas archivée'}} #}
+
+
+        <ul class="list-unstyled">
+            <li class="mb-4">
+                <div class="d-flex justify-content-center">
+                    <div class="mr-2 pt-2">
+                        <img src="/images/fry.png" width="50" height="50">
+                    </div>
+                    <div class="mr-3 pt-2">
+                        I've no idea
+                        <p>-- Fry</p>
+                    </div>
+                    <div class="vote-arrows flex-fill pt-2" style="min-width: 90px;">
+                        <a class="vote-up" href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
+                        <a class="vote-down" href="#"><i class="far fa-arrow-alt-circle-down"></i></a>
+                        <span>+ 6</span>
+                    </div>
+                </div>
+            </li>
+            <li class="mb-4">
+                <div class="d-flex justify-content-center">
+                    <div class="mr-2 pt-2">
+                        <img src="/images/zoiberg.png" width="50" height="50">
+                    </div>
+                    <div class="mr-3 pt-2">
+                        The answer D
+                        <p>-- Zoiberg</p>
+                    </div>
+                    <div class="vote-arrows flex-fill pt-2" style="min-width: 90px;">
+                        <a class="vote-up" href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
+                        <a class="vote-down" href="#"><i class="far fa-arrow-alt-circle-down"></i></a>
+                        <span>+ 6</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 {% endblock %}
-
