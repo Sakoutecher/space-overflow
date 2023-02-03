@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <title>{% block title %}🛸 SPACE OVERFLOW 🛸{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spartan&display=swap">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-        <link rel="stylesheet" href="{{asset('css/app.css')}}">
+        {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
 <body>
@@ -24,7 +23,7 @@
     Space Overflow <i style="color: red;" class="fa fa-rocket"></i>
 </footer>
 {% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
 </body>
 </html>
