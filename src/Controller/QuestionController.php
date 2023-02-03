@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\DTO\Author;
 use App\DTO\Question;
+use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,11 +18,14 @@ class QuestionController extends AbstractController {
     }
 
     #[Route('/questions/{slug}', name: 'app_question_show')]
-    public function show(string $slug): Response {
+    public function show(string $slug, MarkdownParserInterface $markdown): Response {
         $author = new Author('Hugo', 'Campos');
+        $content = "Je suis tombé ***sans faire exprès*** dans un trou noir, pourriez-vous m'indiquer comment sortir de là `svp` ?";
+        $content = $markdown->transformMarkdown($content);
         $question = new Question(
-            $slug, 
-            ucfirst(str_replace('-', ' ', $slug)), 
+            $slug,
+            $content,
+            //ucfirst(str_replace('-', ' ', $slug)), 
             $author
         );
         return $this->render('question/show.html.twig', [
