@@ -45,9 +45,9 @@ class RandomSecurityAlertCommand extends Command
 
         if ($yield) {
             if ($helper->ask($input, $output, $question)) {
-                $io->warning(strtoupper($alerts[random_int(0, 2)]));
+                $io->warning(strtoupper(array_rand(array_flip($alerts))));
             } else {
-                $io->warning($alerts[random_int(0, 2)]);
+                $io->warning(array_rand(array_flip($alerts)));
             }
         }
 
