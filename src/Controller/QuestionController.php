@@ -14,9 +14,12 @@ use Twig\Environment;
 
 class QuestionController extends AbstractController {
     #[Route('/', name: 'app_question_homepage')]
-    public function homepage(Environment $twig): Response {
-        return new Response($twig->render('question/homepage.html.twig'));
-        // return $this->render('question/homepage.html.twig');
+    public function homepage(EntityManagerInterface $entityManager): Response {
+        //return new Response($twig->render('question/homepage.html.twig'));
+        $questions = $entityManager->getRepository(Question::class)->findBy([], ['id' => 'DESC']);
+        return $this->render('question/homepage.html.twig', [
+            'questions' => $questions,
+        ]);
     }
 
     #[Route('/questions/{slug}', name: 'app_question_show')]
@@ -50,9 +53,9 @@ class QuestionController extends AbstractController {
     #[Route('/questions/new', name: 'app_question_new', methods: ['GET', 'POST'], priority: 10)]
     public function new(EntityManagerInterface $entityManager): Response {
         $question = (new Question()) //Paranthèses permettent d'utiliser les méthodes d'objets directement.
-            ->setTitle("Comment sortir d\'un trou noir")
-            ->setSlug("comment-sortir-d-un-trou-noir".uniqid())
-            ->setContent("Je pense que tu ne peut pas sortir d\'un trou noir cela me semble impossible.");
+            ->setTitle("Comment manger un burger dans l'espace")
+            ->setSlug("comment-manger--un-burgder-dans-l-espace".uniqid())
+            ->setContent("Bonjour je cherche à s'avoir comment faire pour manger un burger dans l'espace.");
         $entityManager->persist($question);
         $entityManager->flush();
         return new Response("<html><body>Nouvelle question id {$question->getId()}</body></html>");
