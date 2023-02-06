@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\DTO\Author;
 use App\DTO\Question;
-use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
+use App\Services\MarkdownHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\ItemInterface;
 use Twig\Environment;
 
 class QuestionController extends AbstractController {
@@ -18,13 +19,12 @@ class QuestionController extends AbstractController {
     }
 
     #[Route('/questions/{slug}', name: 'app_question_show')]
-    public function show(string $slug, MarkdownParserInterface $markdown): Response {
+    public function show(string $slug, /*MarkdownParserInterface $markdown, CacheInterface $cache*/ MarkdownHelper $markdown): Response {
         $author = new Author('Hugo', 'Campos');
-        $content = "Je suis tombé ***sans faire exprès*** dans un trou noir, pourriez-vous m'indiquer comment sortir de là `svp` ?";
-        $content = $markdown->transformMarkdown($content);
+        $content = "Je suis tombé ***sans faire trop exprès*** dans un trou noir, pourriez-vous m'indiquer comment sortir de là svp ?";
         $question = new Question(
             $slug,
-            $content,
+            $markdown->parse($content),
             //ucfirst(str_replace('-', ' ', $slug)), 
             $author
         );
