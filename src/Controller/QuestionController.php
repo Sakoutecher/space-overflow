@@ -19,12 +19,12 @@ class QuestionController extends AbstractController {
     }
 
     #[Route('/questions/{slug}', name: 'app_question_show')]
-    public function show(string $slug, /*MarkdownParserInterface $markdown, CacheInterface $cache*/ MarkdownHelper $markdown): Response {
+    public function show(string $slug, /*MarkdownParserInterface $markdown, CacheInterface $cache*/ $markdownParser): Response {
         $author = new Author('Hugo', 'Campos');
-        $content = "Je suis tombé ***sans faire trop exprès*** dans un trou noir, pourriez-vous m'indiquer comment sortir de là svp ?";
+        $content = "Je suis tombé ***sans faire trop vraiment exprès*** dans un trou noir, pourriez-vous m'indiquer comment sortir de là svp ?";
         $question = new Question(
             $slug,
-            $markdown->parse($content),
+            $markdownParser->parse($content),
             //ucfirst(str_replace('-', ' ', $slug)), 
             $author
         );
