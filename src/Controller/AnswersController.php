@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AnswersController extends AbstractController {
-    #[Route('/answers/{id<\d+>}/vote/{direction<up|down>}', name: 'app_answers_vote', methods: ['POST', 'GET'])]
+    #[Route('/answers/{id<\d+>}/vote/{direction<up|down>}', name: 'app_answers_vote', methods: ['POST'])]
     public function vote(string $direction, LoggerInterface $logger): Response {
         $logger->info("Quelqu'un a voté");
         if ($direction === 'up') {
