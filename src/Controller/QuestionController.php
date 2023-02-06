@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\DTO\Author;
 use App\DTO\Question as QuestionDTO;
 use App\Entity\Question;
+use App\Services\MarkdownHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,15 +20,18 @@ class QuestionController extends AbstractController {
     }
 
     #[Route('/questions/{slug}', name: 'app_question_show')]
-    public function show(string $slug, /*MarkdownParserInterface $markdown, CacheInterface $cache*/ $markdownParser): Response {
-        $author = new Author('Hugo', 'Campos');
-        $content = "Je suis tombé ***sans faire trop vraiment exprès*** dans un trou noir, pourriez-vous m'indiquer comment sortir de là svp ?";
-        $question = new QuestionDTO(
-            $slug,
-            $markdownParser->parse($content),
-            //ucfirst(str_replace('-', ' ', $slug)), 
-            $author
-        );
+    public function show(string $slug, /*MarkdownParserInterface $markdown, CacheInterface $cache*/MarkdownHelper $markdownParser, EntityManagerInterface $entityManager): Response {
+        //$author = new Author('Hugo', 'Campos');
+        //$content = "Je suis tombé ***sans faire trop vraiment exprès*** dans un trou noir, pourriez-vous m'indiquer comment sortir de là svp ?";
+        // $question = new QuestionDTO(
+        //     $slug,
+        //     $markdownParser->parse($content),
+        //     //ucfirst(str_replace('-', ' ', $slug)), 
+        //     $author
+        // );
+        $question = $entityManager->getRepository(Question::class)
+            ->findOneBy(['slug' => $slug])
+        ;
         return $this->render('question/show.html.twig', [
             'question' => $question,
             'answers' => [

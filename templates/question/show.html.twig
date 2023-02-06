@@ -14,10 +14,10 @@
                                 <img src="{{asset('/images/bender.png')}}" width="100" height="100">
                             </div>
                             <div class="col">
-                                <h1 class="q-title-show">Comment sortir d'un trou noir ?</h1>
+                                <h1 class="q-title-show">{{question.title|raw}}</h1>
                                 <div class="q-display p-3">
                                     <i class="fa fa-quote-left mr-3"></i>
-                                    <p class="d-inline">{{question.title|raw}}</p>
+                                    <p class="d-inline">{{question.content}}</p>
                                     <p class="pt-4"><strong>-- Bender</strong></p>
                                 </div>
                             </div>
