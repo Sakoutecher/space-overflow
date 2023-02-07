@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spartan&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: spartan;
+            color: #444;
+        }
+
+        .jumbotron-img {
+            background: rgb(237,116,88);
+            background: linear-gradient(302deg, rgba(237,116,88,1) 16%, rgba(51,61,81,1) 97%);
+            color: #fff;
+        }
+
+        .q-container {
+            border-top-right-radius: .25rem;
+            border-top-left-radius: .25rem;
+            background-color: #efefee;
+        }
+
+        .q-container-show {
+            border-top-right-radius: .25rem;
+            border-top-left-radius: .25rem;
+            background-color: #ED7458 ;
+        }
+
+        .q-display {
+            background: #fff;
+            border-radius: .25rem;
+        }
+        .q-title-show {
+            text-transform: uppercase;
+            font-size: 1.3rem;
+            color: #fff;
+        }
+        .q-title {
+            text-transform: uppercase;
+            color: #444;
+        }
+
+        .q-title:hover {
+            color: #2B2B2B;
+        }
+
+        .q-title h2 {
+            font-size: 1.3rem;
+        }
+
+        .q-display-response {
+            background: #333D51;
+            color: #fff;
+        }
+
+        .vote-arrows, .vote-arrows .btn {
+            font-size: 1.5rem;
+        }
+
+        .vote-arrows .btn {
+            color: #444;
+            padding: 0;
+        }
+
+        .vote-arrows span {
+            font-size: 1rem;
+        }
+
+        .vote-up:hover {
+            color: #3D9970;
+        }
+        .vote-down:hover {
+            color: #FF4136;
+        }
+
+        .vote-arrows-alt .vote-up:hover {
+            color: #3D9970;
+        }
+        .vote-arrows-alt .vote-down:hover {
+            color: rgba(179, 20, 12, 0.63);
+        }
+
+        .btn-question {
+            color: #FFFFFF;
+            background-color: #ED7458;
+            border-color: #D45B3F;
+        }
+
+        .btn-question:hover,
+        .btn-question:focus,
+        .btn-question:active,
+        .btn-question.active,
+        .open .dropdown-toggle.btn-question {
+            color: #FFFFFF;
+            background-color: #D45B3F;
+            border-color: #D45B3F;
+        }
+
+        .btn-question:active,
+        .btn-question.active,
+        .open .dropdown-toggle.btn-question {
+            background-image: none;
+        }
+
+        .btn-question.disabled,
+        .btn-question[disabled],
+        fieldset[disabled] .btn-question,
+        .btn-question.disabled:hover,
+        .btn-question[disabled]:hover,
+        fieldset[disabled] .btn-question:hover,
+        .btn-question.disabled:focus,
+        .btn-question[disabled]:focus,
+        fieldset[disabled] .btn-question:focus,
+        .btn-question.disabled:active,
+        .btn-question[disabled]:active,
+        fieldset[disabled] .btn-question:active,
+        .btn-question.disabled.active,
+        .btn-question[disabled].active,
+        fieldset[disabled] .btn-question.active {
+            background-color: #ED7458;
+            border-color: #D45B3F;
+        }
+
+        .btn-question .badge {
+            color: #ED7458;
+            background-color: #FFFFFF;
+        }
+
+        footer {
+            background-color: #efefee;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light" style="height: 100px;">
+        <a class="navbar-brand" href="{{path('app_question_homepage')}}">
+            <i style="color: #444; font-size: 2rem;" class="fa fa-rocket"></i>
+            <p class="pl-2 d-inline font-weight-bold" style="color: #444;">Space Overflow</p>
+        </a>
+        <button class="btn btn-dark">S'inscrire</button>
+    </nav>
+    <div class="jumbotron-img jumbotron jumbotron-fluid" style="heigt: 100vh;">
+        <div class="container">
+            <h1 class="display-4">Votre question à été ajouté !</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col">
+                {% block link_question %}{% endblock %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-3">
+                <div class="q-container p-4">
+                    <div class="row">
+                        <div class="col-2 text-center">
+                            <img src="{{ absolute_url(asset('images/bender.png')) }}" width="100" height="100">
+                        </div>
+                        <div class="col">
+                            {% block question_title %}{% endblock %}
+                            <div class="q-display p-3">
+                                <i class="fa fa-quote-left mr-3"></i>
+                                {% block question_content %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

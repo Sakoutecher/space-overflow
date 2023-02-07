@@ -7,11 +7,15 @@ use App\DTO\Question as QuestionDTO;
 use App\Entity\Question;
 use App\Form\QuestionType;
 use App\Repository\QuestionRepository;
+use App\Services\MailHelper;
 use App\Services\MarkdownHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 
@@ -54,7 +58,7 @@ class QuestionController extends AbstractController {
     }
 
     #[Route('/questions/new', name: 'app_question_new', methods: ['GET', 'POST'], priority: 10)]
-    public function new(EntityManagerInterface $entityManager, Request $request): Response {
+    public function new(EntityManagerInterface $entityManager, Request $request, MailHelper $mailer): Response {
         $form = $this->createForm(QuestionType::class);
         $form->handleRequest($request);
         //Si le formulaire est envoyer et valide
@@ -69,6 +73,8 @@ class QuestionController extends AbstractController {
             $favorite = $form->get('favorite')->getData();
             $entityManager->persist($question);
             $entityManager->flush();
+            //Envoie du mail à l'aide du MailHelper
+            $mailer->sendMail($question);
             return $this->redirectToRoute('app_question_show', ['slug' => $question->getSlug()]);
         }
         //Si le formulaire n'est pas envoyer et pas valide

@@ -1,0 +1,10 @@
+{% extends '/email/main_email.html.twig' %}
+{% block link_question %}
+    <a href="{{ url("app_question_show", {slug: question.slug}) }}" class="btn btn-question">Voir ma question</a>
+{% endblock %}
+{% block question_title %}
+    <h3 class="q-title"><h2 style="color: #444;">{{question.title}}</h2></h3>
+{% endblock %}
+{% block question_content %}
+    <p class="d-inline" style="color: #444;">{{question.content}}</p>
+{% endblock %}
