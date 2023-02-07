@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\DTO\Author;
 use App\DTO\Question as QuestionDTO;
 use App\Entity\Question;
+use App\Repository\QuestionRepository;
 use App\Services\MarkdownHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,9 +15,9 @@ use Twig\Environment;
 
 class QuestionController extends AbstractController {
     #[Route('/', name: 'app_question_homepage')]
-    public function homepage(EntityManagerInterface $entityManager): Response {
+    public function homepage(QuestionRepository $repository): Response {
         //return new Response($twig->render('question/homepage.html.twig'));
-        $questions = $entityManager->getRepository(Question::class)->findBy([], ['id' => 'DESC']);
+        $questions = $repository->findAllAskedOrderByNewest();
         return $this->render('question/homepage.html.twig', [
             'questions' => $questions,
         ]);
@@ -53,9 +54,10 @@ class QuestionController extends AbstractController {
     #[Route('/questions/new', name: 'app_question_new', methods: ['GET', 'POST'], priority: 10)]
     public function new(EntityManagerInterface $entityManager): Response {
         $question = (new Question()) //Paranthèses permettent d'utiliser les méthodes d'objets directement.
-            ->setTitle("Comment manger un burger dans l'espace")
+            ->setTitle("Comment manger un burger dans l'espace".uniqid())
             ->setSlug("comment-manger--un-burgder-dans-l-espace".uniqid())
-            ->setContent("Bonjour je cherche à s'avoir comment faire pour manger un burger dans l'espace.");
+            ->setContent("Bonjour je cherche à s'avoir comment faire pour manger un burger dans l'espace.".uniqid())
+            ->setAskedAt(new \DateTime(random_int(0, 10). ' hour ago'));
         $entityManager->persist($question);
         $entityManager->flush();
         return new Response("<html><body>Nouvelle question id {$question->getId()}</body></html>");
