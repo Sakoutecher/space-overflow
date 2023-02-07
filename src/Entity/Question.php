@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 #[ORM\Table(name: 'questions')]
@@ -21,6 +22,7 @@ class Question {
     private string $slug;
 
     #[ORM\Column(type: 'string', length: 255)]
+	#[Assert\Length(min: 10, max: 255)]
     private string $title;
 
     #[ORM\Column(type: 'text')]
