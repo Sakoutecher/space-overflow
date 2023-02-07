@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\DTO\Author;
 use App\DTO\Question as QuestionDTO;
 use App\Entity\Question;
+use App\Form\QuestionType;
 use App\Repository\QuestionRepository;
 use App\Services\MarkdownHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,15 +54,25 @@ class QuestionController extends AbstractController {
     }
 
     #[Route('/questions/new', name: 'app_question_new', methods: ['GET', 'POST'], priority: 10)]
-    public function new(EntityManagerInterface $entityManager): Response {
-        $question = (new Question()) //Paranthèses permettent d'utiliser les méthodes d'objets directement.
-            ->setTitle("Comment manger un burger dans l'espace".uniqid())
-            ->setSlug("comment-manger-un-burgder-dans-l-espace".uniqid())
-            ->setContent("Bonjour je cherche à s'avoir comment faire pour manger un burger dans l'espace.".uniqid())
-            ->setAskedAt(new \DateTime(random_int(0, 10). ' hour ago'));
-        $entityManager->persist($question);
-        $entityManager->flush();
-        return new Response("<html><body>Nouvelle question id {$question->getId()}</body></html>");
+    public function new(EntityManagerInterface $entityManager, Request $request): Response {
+        $form = $this->createForm(QuestionType::class);
+        $form->handleRequest($request);
+        //Si le formulaire est envoyer et valide
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $question = (new Question()) //Paranthèses permettent d'utiliser les méthodes d'objets directement.
+            //     ->setTitle("Comment manger un burger dans l'espace".uniqid())
+            //     ->setSlug("comment-manger-un-burgder-dans-l-espace".uniqid())
+            //     ->setContent("Bonjour je cherche à s'avoir comment faire pour manger un burger dans l'espace.".uniqid())
+            //     ->setAskedAt(new \DateTime(random_int(0, 10). ' hour ago'))
+            // ;
+            $question = $form->getData();
+            $favorite = $form->get('favorite')->getData();
+            $entityManager->persist($question);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_question_show', ['slug' => $question->getSlug()]);
+        }
+        //Si le formulaire n'est pas envoyer et pas valide
+        return $this->render('question/add.html.twig', ['form' => $form->createView()]);
     }
 
     #[Route('/questions/{slug}/vote', name: 'app_question_vote', methods: ['POST'])]

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 #[ORM\Table(name: 'questions')]
@@ -16,6 +17,7 @@ class Question {
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
+	#[Gedmo\Slug(fields: ['title'])]
     private string $slug;
 
     #[ORM\Column(type: 'string', length: 255)]

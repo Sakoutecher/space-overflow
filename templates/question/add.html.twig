@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+{% form_theme form 'bootstrap_4_layout.html.twig'%}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="my-4">Question</h2>
+                <div class="p-4">
+                    {{form_start(form, {'attr': {'class': 'myform'}})}}
+                        {{form_row(form.title, {'attr': {'class': 'myinput'}, 'label_attr': {'class': 'mylabel'}})}}
+                        {{form_row(form.content)}}
+                        {{form_row(form.askedAt)}}
+                        {{form_row(form.favorite)}}
+                        <button class='btn btn-dark' type="submit">Soumettre</button>
+                    {{form_end(form)}}
+                </div>            
+            </div>        
+        </div>
+    </div>
+{% endblock %}
